@@ -10,22 +10,21 @@ import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
+import SalesList from "./pages/salesList/SalesList";
+import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
 
-let admin = false;
-let user;
-let root = JSON.parse(localStorage.getItem("persist:root"));
-root? user = JSON.parse(root.user) : user = null;
-user? admin = user.currentUser?.isAdmin : admin = false;
+const user = useSelector(state=> state.user.currentUser);
 
   return (
     <Router>
       <Switch>
           <Route path = "/login" >
-            <Login />
+            {(user!==null && user.isAdmin)? <Redirect to="/"/> : <Login />}
           </Route>
-      {admin && (
+      {(user!==null && user.isAdmin)?
         <>
       <Topbar />
       <div className="container">
@@ -51,7 +50,10 @@ user? admin = user.currentUser?.isAdmin : admin = false;
           <Route path="/newproduct">
             <NewProduct />
           </Route>
-      </div></>)}
+          <Route path="/sales">
+            <SalesList/>
+          </Route>
+      </div></> : <Redirect to="/login"/>}
       </Switch>
     </Router>
   );

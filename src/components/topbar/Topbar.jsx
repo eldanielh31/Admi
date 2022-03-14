@@ -1,8 +1,22 @@
 import React from "react";
 import "./topbar.css";
-import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import {ExitToApp} from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { deleteCurrentUserSuccess, deleteUserFailure, deleteUserStart } from "../../redux/userRedux";
+
 
 export default function Topbar() {
+  const dispatch = useDispatch();
+
+  const handleLogout = ()=>{
+    dispatch(deleteUserStart());
+    try {
+      dispatch(deleteCurrentUserSuccess());
+    } catch (error) {
+      dispatch(deleteUserFailure());
+    }
+  }
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -10,7 +24,7 @@ export default function Topbar() {
           <span className="logo">Administrados HERAS</span>
         </div>
         <div className="topRight">
-          <div className="topbarIconContainer">
+          {/* <div className="topbarIconContainer">
             <NotificationsNone />
             <span className="topIconBadge">2</span>
           </div>
@@ -20,8 +34,10 @@ export default function Topbar() {
           </div>
           <div className="topbarIconContainer">
             <Settings />
+          </div> */}
+          <div className="topbarIconContainer" onClick={handleLogout}>
+            <ExitToApp/>
           </div>
-          <img src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="topAvatar" />
         </div>
       </div>
     </div>

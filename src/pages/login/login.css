@@ -13,3 +13,11 @@
     padding: 10px;
     width: 100px;
 }
+.error{
+    font-size: small;
+    margin-bottom: 10px;
+    color: red;
+}
+.hidden{
+    display: none;
+}

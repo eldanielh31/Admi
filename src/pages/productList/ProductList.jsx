@@ -19,11 +19,11 @@ export default function ProductList() {
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "ID", width: 300 },
     {
       field: "product",
       headerName: "Producto",
-      width: 200,
+      width: 400,
       renderCell: (params) => {
         return (
           <div className="productListItem">
@@ -42,6 +42,7 @@ export default function ProductList() {
       field: "action",
       headerName: "Acción",
       width: 150,
+      sortable: false,
       renderCell: (params) => {
         return (
           <>
@@ -65,8 +66,7 @@ export default function ProductList() {
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}
-        pageSize={8}
-        checkboxSelection
+        pageSize={5}
       />
     </div>
   );
